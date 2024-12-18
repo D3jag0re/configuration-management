@@ -57,5 +57,6 @@ Modify the app role to pull the repository from GitHub and deploy it.
 ## Lessons Learned
 
 - Directory structure for Ansible roles is important. Read the docs!
+- remote_source for built in ansible module to explicitly state file should exist on remote
 
 
