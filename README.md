@@ -31,6 +31,10 @@ ansible-playbook setup.yml
 ansible-playbook setup.yml --tags "app"
 ```
 
+Stretch goal
+
+Modify the app role to pull the repository from GitHub and deploy it.
+
 ## To Run 
 
 - Setup the following repository secrets:
