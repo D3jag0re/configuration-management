@@ -1,6 +1,8 @@
 name: Build > Deploy
 
 # [X] Build droplet 
+# [X] Install Ansible 
+# [ ] Run Playbook 
 
 on:
     push:
@@ -56,7 +58,7 @@ jobs:
         echo "name=$(echo $DROPLET_INFO | jq -r '.name')" >> $GITHUB_OUTPUT
        working-directory: ./terraform  
 
- copy_install_run:
+ ansible:
    runs-on: ubuntu-latest
    needs: build_droplet
 
@@ -64,5 +66,34 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Wait for Droplet to be ready for SSH connections
-      run: sleep 15
+    - name: Install Ansible
+      run: |
+       sudo apt update
+       sudo apt install software-properties-common
+       sudo add-apt-repository --yes --update ppa:ansible/ansible
+       sudo apt install ansible
+
+    - name: Run Ansible Playbook
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        # Required, playbook filepath
+        playbook: setup.yml
+        # Optional, directory where playbooks live
+        directory: ./ansible 
+        # Optional, SSH private key
+        key: ${{ secrets.DO_SSH_PRIVATE_KEY }}
+        # Optional, literal inventory file contents
+        inventory: |
+          [web]
+          ${{ needs.build_droplet.outputs.ipv4 }}
+  
+          [group1]
+          example.com
+        # Optional, SSH known hosts file content
+        #known_hosts: |
+        #  example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+        # Optional, additional flags to pass to ansible-playbook
+        options: |
+          --inventory .hosts
+
+    

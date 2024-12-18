@@ -1,0 +1,17 @@
+---
+- name: Download sit content 
+  ansible.builtin.get_url:
+    url: https://html5up.net/story/download
+    dest: /var/www/html
+
+- name: Extract foo.tgz into /var/lib/foo
+  ansible.builtin.unarchive:
+    src: /var/www/html/html5up-story
+    dest: /var/www/html
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
+
