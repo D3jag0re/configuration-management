@@ -85,7 +85,7 @@ jobs:
         # Optional, literal inventory file contents
         inventory: |
           [web]
-          ${{ needs.build_droplet.outputs.ipv4 }} ansible_user=your_user
+          ${{ needs.build_droplet.outputs.ipv4 }} ansible_user=root
         # Optional, SSH known hosts file content
         #known_hosts: |
         #  example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
