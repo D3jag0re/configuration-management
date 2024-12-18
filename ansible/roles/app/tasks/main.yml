@@ -2,12 +2,13 @@
 - name: Download sit content 
   ansible.builtin.get_url:
     url: https://html5up.net/story/download
-    dest: /var/www/html
+    dest: /var/www/html/html5up-story.zip
 
-- name: Extract foo.tgz into /var/lib/foo
+- name: Extract zip into dir 
   ansible.builtin.unarchive:
     src: /var/www/html/html5up-story
     dest: /var/www/html
+    remote_src: yes # Indicates the file is already on the remote server
 
 - name: Restart Nginx
   service:
