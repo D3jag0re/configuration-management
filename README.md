@@ -23,6 +23,14 @@ You are required to write an Ansible playbook called setup.yml and create the fo
 
 Set up the inventory file inventory.ini to include the server you are going to configure When you run the playbook, it should run the roles above in sequence. You should also assign proper tags to the roles so that you can run only specific roles.
 
+```
+# Run all the roles
+ansible-playbook setup.yml
+
+# Run only the app role
+ansible-playbook setup.yml --tags "app"
+```
+
 ## To Run 
 
 - Setup the following repository secrets:
