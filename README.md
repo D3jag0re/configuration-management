@@ -56,6 +56,6 @@ Modify the app role to pull the repository from GitHub and deploy it.
 
 ## Lessons Learned
 
-- Lesson.
+- Directory structure for Ansible roles is important. Read the docs!
 
 
